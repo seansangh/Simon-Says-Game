@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <link rel="stylesheet" href="/style.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script>
+$(document).ready(function(){
+  var count=1; var total=20; var arr=[]; var current=0;
+  
+  function myF3(a,b){
+    if(b=="yes"){
+      
+setTimeout(function(){
+    $('#'+arr[a]).css('opacity',1);
+ 
+  switch(arr[a]){
+    case "circletl":
+     $("#audio1")[0].play();  
+      break;
+    case "circletr":
+     $("#audio2")[0].play();  
+      break;
+    case "circlebl":
+     $("#audio3")[0].play();  
+      break;      
+    case "circlebr":
+     $("#audio4")[0].play();  
+      break;      
+  }
+},(a+1)*1000)      
+      
+setTimeout(function(){$('#'+arr[a]).css('opacity',0.5)},(a+1)*1000+500)      
+      
+    }
+  }
+
+  function myF2(){
+    $('#count').val(count);
+    current=0;
+    
+    if(count !=21){
+      
+    for(var a=0; a<count; a++){
+       myF3(a,'yes')
+    }
+      
+  /*  for(var a=0; a<count; a++){
+      setTimeout(function(){
+        $('#'+arr[a]).css('opacity',1);
+ 
+ console.log(arr[a])
+
+  switch(arr[a]){
+    case "circletl":
+     $("#audio1")[0].play();  
+      break;
+    case "circletr":
+     $("#audio2")[0].play();  
+      break;
+    case "circlebl":
+     $("#audio3")[0].play();  
+      break;      
+    case "circlebr":
+     $("#audio4")[0].play();  
+      break;      
+  }
+                           },(a+1)*1000)
+      setTimeout(function(){$('#'+arr[a]).css('opacity',0.5)},(a+1)*1000+500)     
+    }*/
+      
+      
+    }
+    else{
+      alert('You win');
+      count=1; total=20; arr=[];
+$('#count').val('--')
+    }
+  }
+  
+  
+  
+  function myF(){
+     count=1; arr=[]; current=0;
+      for(var i=0; i<total; i++){
+        var ab= Math.floor(Math.random()*4)
+        var col="";
+        switch(ab){
+          case 0:
+            col='circletl'
+          break;
+          case 1:
+            col='circletr'
+          break;
+          case 2:
+            col='circlebl'
+          break;
+          case 3:
+            col='circlebr'
+          break;   
+        }
+        arr.push(col)
+      } console.log(arr)
+  }
+
+  
+  $('#switch').on('click', function(){
+    $('#b1').css('background','#0099ff')
+    $('#b2').css('background','black')
+    $('#strict2').css('background','#404040')
+    $('#count').val('--')
+
+ count=1; total=20; arr=[]; current=0;
+  })
+  
+  $('#switch2').on('click', function(){
+    $('#b2').css('background','#0099ff')
+    $('#b1').css('background','black')  
+  })
+  
+  $('#strict').on('click', function(){
+    if($('input[name=off]:checked').val() == 'on' && $('#strict2').css('background-color')!='rgb(255, 0, 0)'){
+      $('#strict2').css('background-color','rgb(255, 0, 0)')
+    }
+    else if($('input[name=off]:checked').val() == 'on' && $('#strict2').css('background-color')=='rgb(255, 0, 0)'){
+      $('#strict2').css('background-color','#391919')             
+             }
+    
+  })
+  
+  $('#switch2').on('click', function(){
+      setTimeout(function(){$('#count').css('color','red')},500)
+  })
+  
+  $('#switch').on('click', function(){
+      $('#count').css('color','#4d1919')
+
+  })
+  
+  $('#start').on('click', function(){
+    if($('input[name=off]:checked').val() == 'on'){ 
+     myF()
+      //alert(count)
+     setTimeout(function(){$('#count').val('')},500)
+     setTimeout(function(){$('#count').val('--')},750)
+     setTimeout(function(){$('#count').val('')},1000)
+     setTimeout(function(){$('#count').val(count)},1500) 
+     setTimeout(function(){$('#'+arr[current]).css('opacity',1); 
+  switch(arr[current]){
+    case "circletl":
+     $("#audio1")[0].play();  
+      break;
+    case "circletr":
+     $("#audio2")[0].play();  
+      break;
+    case "circlebl":
+     $("#audio3")[0].play();  
+      break;      
+    case "circlebr":
+     $("#audio4")[0].play();  
+      break;      
+  }},1500)
+     setTimeout(function(){$('#'+arr[current]).css('opacity',0.5)},2000) 
+    }
+  })
+  
+  
+  $('#circletl').on('click', function(){
+    if(arr.length>2){
+       $("#audio1")[0].play();
+       $('#circletl').css('opacity',1)
+      setTimeout(function(){  $('#circletl').css('opacity',0.5)}, 500)      
+      if($('#strict2').css('background-color')=='rgb(255, 0, 0)'){
+        if(arr[current]=='circletl'){
+         current++;    
+
+        }
+        else if(arr[current]!='circletl'){
+          alert('incorrect response');        
+ setTimeout(function(){$('#count').val('! !')},500)
+     setTimeout(function(){$('#count').val('  ')},750)
+     setTimeout(function(){$('#count').val('! !')},1000)
+     setTimeout(function(){$('#count').val('--')},1500)          
+   count=1; total=20; arr=[]; current=0;
+        }
+        if(current==count && arr.length !=0){
+             count++;     myF2();
+
+        }
+             
+      }else{ //alert('else')
+      if(arr[current]=='circletl'){
+        current++;  //alert('else1')
+      }
+      else if(arr[current]!='circletl'){
+        alert('incorrect'); myF2(); 
+      }
+      if(current==count && arr.length !=0){
+        count++;  myF2();   //alert('else3');
+
+      } 
+        
+      }    
+    }  
+  })
+
+  
+  
+  
+$('#circletr').on('click', function(){
+    if(arr.length>2){
+       $("#audio2")[0].play();   
+       $('#circletr').css('opacity',1);
+      setTimeout(function(){ $('#circletr').css('opacity',0.5)}, 500);      
+      if($('#strict2').css('background-color')=='rgb(255, 0, 0)'){
+        if(arr[current]=='circletr'){
+         current++;
+        }
+        else if(arr[current]!='circletr'){
+          alert('incorrect response');
+ setTimeout(function(){$('#count').val('! !')},500)
+     setTimeout(function(){$('#count').val('  ')},750)
+     setTimeout(function(){$('#count').val('! !')},1000)
+     setTimeout(function(){$('#count').val('--')},1500)          
+   count=1; total=20; arr=[]; current=0;
+        }
+        if(current==count && arr.length !=0){
+          count++;  myF2();  
+        }
+             
+      }else{
+      if(arr[current]=='circletr'){
+        current++;
+      }
+      else if(arr[current]!='circletr'){
+        alert('incorrect'); myF2()      
+      }
+      if(current==count && arr.length !=0){
+        count++;  myF2();  
+
+      } 
+        
+      }    
+    }  
+  })  
+  
+  
+  
+$('#circlebl').on('click', function(){
+    if(arr.length>2){
+       $("#audio3")[0].play();
+       $('#circlebl').css('opacity',1)
+      setTimeout(function(){ $('#circlebl').css('opacity',0.5)}, 500)      
+      if($('#strict2').css('background-color')=='rgb(255, 0, 0)'){
+        if(arr[current]=='circlebl'){
+         current++;
+        }
+        else if(arr[current]!='circlebl'){
+          alert('incorrect response');         
+     setTimeout(function(){$('#count').val('! !')},500)
+     setTimeout(function(){$('#count').val('  ')},750)
+     setTimeout(function(){$('#count').val('! !')},1000)
+     setTimeout(function(){$('#count').val('--')},1500)          
+     count=1; total=20; arr=[]; current=0;
+        }
+        if(current==count && arr.length !=0){
+          count++;
+          myF2();   
+        }
+             
+      }else{
+      if(arr[current]=='circlebl'){
+        current++;
+      }
+      else if(arr[current]!='circlebl'){
+        alert('incorrect'); myF2()      
+      }
+      if(current==count && arr.length !=0){
+        count++;  myF2();
+
+      } 
+        
+      }    
+    }  
+  })  
+  
+  
+  
+ $('#circlebr').on('click', function(){
+   if(arr.length>2){
+       $("#audio4")[0].play();
+       $('#circlebr').css('opacity',1)
+      setTimeout(function(){ $('#circlebr').css('opacity',0.5)}, 500)
+      if($('#strict2').css('background-color')=='rgb(255, 0, 0)'){
+        if(arr[current]=='circlebr'){
+         current++;
+        }
+        else if(arr[current]!='circlebr'){
+          alert('incorrect response');         
+ setTimeout(function(){$('#count').val('! !')},500)
+     setTimeout(function(){$('#count').val('  ')},750)
+     setTimeout(function(){$('#count').val('! !')},1000)
+     setTimeout(function(){$('#count').val('--')},1500)          
+   count=1; total=20; arr=[]; current=0;
+        }
+        if(current==count && arr.length !=0){
+          count++;     myF2();
+        }
+             
+      }else{
+      if(arr[current]=='circlebr'){
+        current++;
+      }
+      else if(arr[current]!='circlebr'){
+        alert('incorrect'); myF2()      
+      }
+      if(current==count && arr.length !=0){
+        count++;  myF2();
+
+      } 
+        
+      }    
+    }  
+  })
+  
+  
+  
+})
+   </script>   
+  </head>
+  <body>
+    <div id="out">
+
+    </div> 
+    <div id="in">
+      <div id="circle">
+        <div id="circletl">
+        
+        </div>
+        <div id="circletr">
+        
+        </div>
+        <div id="circlebl">
+        
+        </div>
+        <div id="circlebr">
+        
+        </div>
+        <div id="circle2">
+          <h1>Simon<sup><me>&reg</me></sup></h1>
+          <input type="text" name="count" id="count" value="--" disabled>
+        <p id="cn">COUNT</p>
+        <p id="sn">START</p>
+        <p id="tn">STRICT</p> 
+        <div id="start"></div>
+        <div id="strict"></div>
+        <div id="strict2"></div>
+        <p id="off">OFF</p>
+        <p id="on">ON</p>
+        <div id="b1"></div>  
+        <div id="b2"></div>  
+        
+        <div id="but">
+          <form>
+            <input type="radio" id="switch" value="off" name="off" checked/>
+            <input type="radio" id="switch2" value="on" name="off" />
+          </form>
+        </div>
+        <div>
+          <audio id="audio1" controls src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" type="audio/mpeg" />
+          <audio id="audio2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" type="audio/mpeg" />
+          <audio id="audio3" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" type="audio/mpeg" />
+          <audio id="audio4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" type="audio/mpeg" />
+      </div>
+    </div> 
+      </div>
+    </div>
+  </body>
+</html>
